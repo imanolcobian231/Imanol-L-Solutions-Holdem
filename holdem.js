@@ -30,14 +30,21 @@ function generateHoleCards() {
     return holeCards
 }
 
-function compareCards() {
-    let compare = holeCards + comunityCards
-    return compare 
-    
+//Agrega valor a los numeros y acomoda en base al valor
+function ranks() {
+    let compare = [...holeCards, ...comunityCards]
+    const valores = {"2": 2, "3": 3, "4": 4, "5": 5,"6": 6, "7": 7, "8": 8, "9": 9,"10": 10, "J": 11, "Q": 12, "K": 13, "A": 14};
+    comunityCards.sort((a, b) => {
+        let valA = valores[a.slice(0, -1)];//Elimina el palo para poder comparar el numero
+        let valB = valores[b.slice(0, -1)];
+        return valB - valA;//Ordena de mayor a menor 
+    });
+
+    return comunityCards;
 }
 
 
 console.log(generateComunityCards())
 console.log(generateHoleCards())
-console.log(compareCards())
+console.log(ranks())
 
