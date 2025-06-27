@@ -45,10 +45,11 @@ function ranks() {
     return ""
 }
 
+//Detecta manos
 function hands() {
     let compare = [...holeCards, ...comunityCards]
     let hand = Hand.solve(compare)
-    console.log("type: ", hand.name)
+    console.log("type: ", hand.name) //Obtiene tipo de mano 
     return ""
 }
 
