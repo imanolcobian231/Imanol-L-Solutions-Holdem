@@ -1,29 +1,43 @@
-let numbers = [2,3,4,5,6,7,8,9,10,"J","Q","K","A",]
-let suits = ["♠","♦","♥","♣"]
-let comunityCarts = []
-let holeCarts = []
+const numbers = [2,3,4,5,6,7,8,9,10,"J","Q","K","A",]
+const suits = ["♠","♦","♥","♣"]
+let comunityCards = []
+let holeCards = []
+let used = new Set()
+let card
 
 //Genera carta sumando los valores aletorios de los numeros y palos
-function generateCarts() {
-    let cart = numbers[Math.floor(Math.random()*numbers.length)] + suits[Math.floor(Math.random()*suits.length)]
-    return cart
+function generateCards() {
+    do {
+        card = numbers[Math.floor(Math.random()*numbers.length)] + suits[Math.floor(Math.random()*suits.length)]
+    } while(used.has(card))
+    used.add(card) //Agrega las cartas a un set para que no se repitan
+    return card
 }
 
 //Genera 5 cartas aleatoreas
-function generateComunityCarts() {
+function generateComunityCards() {
     for (let i = 0; i <= 4; i++) {
-    comunityCarts.push(generateCarts())
+    comunityCards.push(generateCards())
     }
-    return comunityCarts
+    return comunityCards
 }
+
 //Genera 3 cartas aleatoreas
-function generateHoleCarts() {
+function generateHoleCards() {
     for (let i = 0; i <= 1; i++) {
-        holeCarts.push(generateCarts())
+        holeCards.push(generateCards())
     }
-    return holeCarts
+    return holeCards
+}
+
+function compareCards() {
+    let compare = holeCards + comunityCards
+    return compare 
+    
 }
 
 
-console.log(generateComunityCarts())
-console.log(generateHoleCarts())
+console.log(generateComunityCards())
+console.log(generateHoleCards())
+console.log(compareCards())
+
