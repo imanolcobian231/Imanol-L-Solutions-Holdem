@@ -18,6 +18,7 @@ npm install pokersolver
 3. Crear las 2 cartas privadas (hole cards) del jugador.
 4. Ordenar las cartas comunitarias por valor (sin importar el palo).
 5. Evaluar la combinación de las 7 cartas y determinar la mejor mano posible según las reglas del poker.
+6. De momento funciona con libreria "POKERSOLVER" pero se esta trabajando en su version libre de librerias
 
 ---
 
