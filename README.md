@@ -1,7 +1,7 @@
 ````markdown
 # Poker Hand Simulator en JavaScript
 
-Este proyecto simula una mano de poker **Texas Hold'em**, generando aleatoriamente cartas comunitarias y cartas privadas para un jugador, evitando duplicados, ordenando las cartas y determinando el tipo de mano obtenida utilizando la librería `pokersolver`.
+Este proyecto simula una mano de poker **Texas Hold'em**, generando aleatoriamente cartas comunitarias y cartas privadas para un jugador, evitando duplicados, ordenando las cartas y determinando el tipo de mano obtenida utilizando la librería `pokersolver`. (PROVISIONALMENTE)
 
 ## Requisitos
 
