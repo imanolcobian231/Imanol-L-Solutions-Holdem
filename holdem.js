@@ -37,25 +37,39 @@ function ranks() {
     const valores = {"2": 2, "3": 3, "4": 4, "5": 5,"6": 6, "7": 7, "8": 8, "9": 9,"10": 10, "J": 11, "Q": 12, "K": 13, "A": 14};
     comunityCards.sort((a, b) => {
         let valA = valores[a.slice(0, -1)];//Elimina el palo para poder comparar el numero
-        let valB = valores[b.slice(0, -1)];
+        let valB = valores[b.slice(0, -1)];    
         return valB - valA;//Ordena de mayor a menor 
+        
     });
 
     console.log("ranks: ",comunityCards)
     return ""
 }
 
-//Detecta manos
-function hands() {
-    let compare = [...holeCards, ...comunityCards]
-    let hand = Hand.solve(compare)
-    console.log("type: ", hand.name) //Obtiene tipo de mano 
-    return ""
-}
+function handsR() {
+    let compare1 = []
+    let compare = []
+    compare = [...holeCards, ...comunityCards]
+
+    for (let i = 0; i < compare.length; i++) {
+        compare1.push(compare[i].slice(0, -1))
+    }
+    const conteo = {} 
+    for (const num of compare1) {
+        if(conteo[num]) {
+            conteo[num]++
+        } else {
+            conteo[num] = 1
+        }
+    }
+        return conteo
+    } 
+
 
 
 console.log(generateComunityCards())
 console.log(generateHoleCards())
 console.log(ranks())
 console.log(hands())
+console.log(handsR())
 
