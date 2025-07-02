@@ -4,6 +4,7 @@ let comunityCards = []
 let holeCards = []
 let used = new Set()
 let card
+let flush = false
 const { Hand } = require("pokersolver");
 
 //Genera carta sumando los valores aletorios de los numeros y palos
@@ -54,11 +55,44 @@ function hands() {
     return ""
 }
 
+    //Valida flush
+function flushR() {
+    let compare = []
+    let compare1 = []
+    const conteo = {}
+    compare = [...holeCards, ...comunityCards]
+    //Elimina numero para comparar palo
+    for (let i = 0; i < compare.length; i++) {
+        compare1.push(compare[i].slice(1))
+    }
+
+    //Cuenta repeticiones de palo
+    for (const num of compare1) {
+        if(conteo[num]) {
+            conteo[num]++
+        } else {
+            conteo[num] = 1
+        }
+    }
+
+    //Si se repite 5 veces retorna "FLUSH"
+    for(const num in conteo) {
+        if(conteo[num] >= 5) {
+            console.log("type: flush")
+            flush = true
+        }
+    }
+
+    return conteo
+    
+}
+
 function handsR() {
     let compare1 = []
     let compare = []
     let pairs = false
     let three = false
+    let fullHouse = false
     let twoPairs = 0
     compare = [...holeCards, ...comunityCards]
 
@@ -105,59 +139,30 @@ function handsR() {
         }
     }
 
-    if(twoPairs == 1) { //TWO PAIRS
+    if(three && twoPairs >= 1 && flush == false) { //FULLHOUSE
+        console.log("type: full house")
+        fullHouse = true
+    }
+
+    if(three && fullHouse == false && flush == false) {
+        console.log("type: three of a kind")
+    }
+
+    if(twoPairs == 1 && fullHouse == false && flush == false) { //PAIR
         console.log("type: pair")
     }
 
-    if(three && twoPairs >= 1) { //FULLHOUSE
-        console.log("type: full house")
-    }
-
-
-
-    if(twoPairs >= 2) { //FULLHOUSE
+    if(twoPairs >= 2 && flush == false) { //TWO PAIRS
         console.log("type: two pair")
     }
     return conteo
     } 
 
-
-    //Valida flush
-function flush() {
-    let compare = []
-    let compare1 = []
-    const conteo = {}
-    compare = [...holeCards, ...comunityCards]
-    //Elimina numero para comparar palo
-    for (let i = 0; i < compare.length; i++) {
-        compare1.push(compare[i].slice(1))
-    }
-
-    //Cuenta repeticiones de palo
-    for (const num of compare1) {
-        if(conteo[num]) {
-            conteo[num]++
-        } else {
-            conteo[num] = 1
-        }
-    }
-
-    //Si se repite 5 veces retorna "FLUSH"
-    for(const num in conteo) {
-        if(conteo[num] >= 5) {
-            console.log("type: flush")
-        }
-    }
-
-    return conteo
-    
-}
-
-
 console.log(generateComunityCards())
 console.log(generateHoleCards())
 console.log(ranks())
 console.log(hands())
+console.log(flushR())
 console.log(handsR())
-console.log(flush())
+
 
