@@ -65,7 +65,7 @@ function flushR() {
     compare = [...holeCards, ...comunityCards]
     //Elimina numero para comparar palo
     for (let i = 0; i < compare.length; i++) {
-        compare1.push(compare[i].slice(1))
+        compare1.push(compare[i].slice(-1))
     }
 
     //Cuenta repeticiones de palo
