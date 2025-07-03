@@ -5,6 +5,8 @@ let holeCards = []
 let used = new Set()
 let card
 let flush = false
+let straight = false
+let straightFlush = false
 const { Hand } = require("pokersolver");
 
 //Genera carta sumando los valores aletorios de los numeros y palos
@@ -87,6 +89,70 @@ function flushR() {
     
 }
 
+function checkStraight() {
+    const valores = {"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9,"10":10,"J":11,"Q":12,"K":13,"A":14}
+    let compare = [...holeCards, ...comunityCards]
+    let numbers = []
+    let suits = {}
+    
+    //Guarda valores únicos y separa por palo
+    for(let i=0; i<compare.length; i++) {
+        let num = compare[i].slice(0, -1)
+        let suit = compare[i].slice(-1)
+        let val = valores[num]
+
+        if(!numbers.includes(val)) {
+            numbers.push(val)
+        }
+
+        if(!suits[suit]) {
+            suits[suit] = []
+        }
+
+        if(!suits[suit].includes(val)) {
+            suits[suit].push(val)
+        }
+    }
+
+    numbers.sort((a,b) => a - b)
+
+
+    //Valida escalera normal
+    let count = 1
+    for(let i=1; i<numbers.length; i++) {
+        if(numbers[i] === numbers[i-1] + 1) {
+            count++
+            if(count === 5) {
+                console.log("type: straight")
+                straight = true
+            }
+        } else {
+            count = 1
+        }
+    }
+
+    //Valida straight flush
+    for(let suit in suits) {
+        let arr = suits[suit].sort((a,b) => a - b)
+        let countFlush = 1
+        for(let i=1; i<arr.length; i++) {
+            if(arr[i] === arr[i-1] + 1) {
+                countFlush++
+                if(countFlush === 5) {
+                    console.log("type: straight flush")
+                    straightFlush = true
+                    straight = false
+                }
+            } else {
+                countFlush = 1
+            }
+        }
+    }
+
+    return ""
+}
+
+
 function handsR() {
     let compare1 = []
     let compare = []
@@ -121,7 +187,7 @@ function handsR() {
 
     //Valida par, trio, pokar, dos pares y full house
     for(const num in conteo) {
-        if(pairs === false) {
+        if(pairs === false && flush == false && straight == false && straightFlush == false) {
             console.log("type: high card")
             break
         }
@@ -144,7 +210,7 @@ function handsR() {
         fullHouse = true
     }
 
-    if(three && fullHouse == false && flush == false) {
+    if(three && fullHouse == false && flush == false) { //TRIO
         console.log("type: three of a kind")
     }
 
@@ -156,13 +222,14 @@ function handsR() {
         console.log("type: two pair")
     }
     return conteo
-    } 
+} 
 
 console.log(generateComunityCards())
 console.log(generateHoleCards())
 console.log(ranks())
 console.log(hands())
 console.log(flushR())
+console.log(checkStraight())
 console.log(handsR())
 
 
