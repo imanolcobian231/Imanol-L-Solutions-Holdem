@@ -7,7 +7,6 @@ let card
 let flush = false
 let straight = false
 let straightFlush = false
-const { Hand } = require("pokersolver");
 
 //Genera carta sumando los valores aletorios de los numeros y palos
 function generateCards() {
@@ -49,14 +48,6 @@ function ranks() {
     return ""
 }
 
-//Detecta manos
-function hands() {
-    let compare = [...holeCards, ...comunityCards]
-    let hand = Hand.solve(compare)
-    console.log("type: ", hand.name) //Obtiene tipo de mano 
-    return ""
-}
-
     //Valida flush
 function flushR() {
     let compare = []
@@ -85,7 +76,7 @@ function flushR() {
         }
     }
 
-    return conteo
+    return ""
     
 }
 
@@ -221,13 +212,13 @@ function handsR() {
     if(twoPairs >= 2 && flush == false) { //TWO PAIRS
         console.log("type: two pair")
     }
-    return conteo
+
+    return ""
 } 
 
 console.log(generateComunityCards())
 console.log(generateHoleCards())
 console.log(ranks())
-console.log(hands())
 console.log(flushR())
 console.log(checkStraight())
 console.log(handsR())
