@@ -196,16 +196,16 @@ function handsR() {
         }
     }
 
-    if(three && twoPairs >= 1 && flush == false) { //FULLHOUSE
+    if(three && twoPairs >= 1 && flush == false && straight == false && straightFlush == false) { //FULLHOUSE
         console.log("type: full house")
         fullHouse = true
     }
 
-    if(three && fullHouse == false && flush == false) { //TRIO
+    if(three && fullHouse == false && flush == false && straight == false && straightFlush == false) { //TRIO
         console.log("type: three of a kind")
     }
 
-    if(twoPairs == 1 && fullHouse == false && flush == false) { //PAIR
+    if(twoPairs == 1 && fullHouse == false && flush == false && straight == false && straightFlush == false) { //PAIR
         console.log("type: pair")
     }
 
